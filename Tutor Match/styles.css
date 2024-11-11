@@ -1,0 +1,19 @@
+/* General adjustments */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .hero-section {
+    background: url('hero-background.jpg') center center/cover no-repeat;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hero-section h1 {
+      font-size: 2rem;
+    }
+    .hero-section p {
+      font-size: 1rem;
+    }
+  }
+  
