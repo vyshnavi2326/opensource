@@ -82,6 +82,9 @@
                   <li class="nav-item">
                     <a class="nav-link" href="Student_Login.html">Student Registeration</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="View-All-Subjects.html">View All Subjects</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -97,7 +100,7 @@
         <h1 class="hero-title">Find Your Perfect <span class="text-primary">Academic Match</span></h1>
         <p class="hero-subtitle mt-3">Connect with expert tutors who understand your academic goals. Get personalized help in any subject, anytime.</p>
         <div class="mt-4">
-          <a href="Get-started.html" class="btn hero-btn-primary mr-3">Get Started</a>
+          <a href="Profile.html" class="btn hero-btn-primary mr-3">Get Started</a>
           <a href="#popular-subjects" class="btn hero-btn-secondary">Browse Tutors</a>
         </div>
       </div>
@@ -108,89 +111,6 @@
     </div>
   </div>
 </section>
-
-
-
-    <div class="row">
-      <!-- Popular Subjects Section -->
-<section id="popular-subjects" class="py-5 bg-light">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="display-4 font-weight-bold">Popular Subjects</h2>
-        <p class="lead text-muted">Find expert tutors in your field of study</p>
-      </div>
-  
-      <div class="row">
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="subject-card d-flex align-items-center shadow-sm">
-            <i class="fas fa-laptop-code subject-icon"></i>
-            <div>
-              <h5 class="font-weight-bold">Computer Science</h5>
-              <p class="text-muted mb-0">45 tutors available</p>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="subject-card d-flex align-items-center shadow-sm">
-            <i class="fas fa-calculator subject-icon"></i>
-            <div>
-              <h5 class="font-weight-bold">Mathematics</h5>
-              <p class="text-muted mb-0">62 tutors available</p>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="subject-card d-flex align-items-center shadow-sm">
-            <i class="fas fa-flask subject-icon"></i>
-            <div>
-              <h5 class="font-weight-bold">Chemistry</h5>
-              <p class="text-muted mb-0">38 tutors available</p>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="subject-card d-flex align-items-center shadow-sm">
-            <i class="fas fa-book-open subject-icon"></i>
-            <div>
-              <h5 class="font-weight-bold">Literature</h5>
-              <p class="text-muted mb-0">29 tutors available</p>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="subject-card d-flex align-items-center shadow-sm">
-            <i class="fas fa-globe subject-icon"></i>
-            <div>
-              <h5 class="font-weight-bold">Languages</h5>
-              <p class="text-muted mb-0">41 tutors available</p>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="subject-card d-flex align-items-center shadow-sm">
-            <i class="fas fa-brain subject-icon"></i>
-            <div>
-              <h5 class="font-weight-bold">Psychology</h5>
-              <p class="text-muted mb-0">33 tutors available</p>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <div class="text-center mt-4">
-       
-        <button class="btn btn-outline-primary btn-lg"><a href="View-All-Subjects.html" style="text-decoration: none;">View All Subjects</a></button>
-      </div>
-    </div>
-  </section>
-  
-     
-
 <!-- About Us Section -->
 <div class="container">
   <div class="text-center mb-5">
@@ -269,7 +189,40 @@
             <label for="message" class="form-label">Message</label>
             <textarea class="form-control" id="message" rows="4" placeholder="Your Message" required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary"><script> Submit
+            document.querySelector('form').addEventListener('submit', async (event) => {
+              event.preventDefault(); // Prevent form from reloading the page
+          
+              // Gather form data
+              const name = document.getElementById('name').value;
+              const email = document.getElementById('email').value;
+              const message = document.getElementById('message').value;
+          
+              try {
+                // Send data to the backend
+                const response = await fetch('http://localhost:5000/contact', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ name, email, message }),
+                });
+          
+                const result = await response.json();
+          
+                if (response.ok) {
+                  alert(result.message); // Show success alert
+                  document.querySelector('form').reset(); // Clear the form
+                } else {
+                  alert(result.error); // Show error alert
+                }
+              } catch (error) {
+                alert('An error occurred. Please try again. submitted successfully');
+                console.error(error);
+              }
+            });
+          </script>
+          </button>
         </form>
       </div>
     </div>
