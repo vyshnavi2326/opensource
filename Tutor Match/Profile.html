@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Student Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/build/lucide.js"></script>
+  </head>
+  <body class="bg-gray-50">
+    <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold text-gray-900">Student Profile</h2>
+        </div>
+
+        <!-- Profile Data -->
+        <div>
+          <h3 class="text-xl font-semibold text-gray-700">Personal Information</h3>
+          <p><strong>Name: </strong><span id="profileName"></span></p>
+          <p><strong>Education Status: </strong><span id="profileEducation"></span></p>
+          <p><strong>Contact Information: </strong><span id="profileContact"></span></p>
+          <p><strong>Message to Tutor: </strong><span id="profileMessage"></span></p>
+          <p><strong>About You: </strong><span id="profileAbout"></span></p>
+          <p><strong>Languages: </strong><span id="profileLanguages"></span></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      lucide.createIcons();
+
+      // Retrieve stored data from localStorage
+      document.getElementById('profileName').textContent = localStorage.getItem('studentName');
+      document.getElementById('profileEducation').textContent = localStorage.getItem('educationStatus');
+      document.getElementById('profileContact').textContent = localStorage.getItem('contactInfo');
+      document.getElementById('profileMessage').textContent = localStorage.getItem('messageToTutor');
+      document.getElementById('profileAbout').textContent = localStorage.getItem('aboutYou');
+      document.getElementById('profileLanguages').textContent = JSON.parse(localStorage.getItem('languages')).join(', ');
+    </script>
+     <div class="container">
+        <div class="header">
+          <h2>My Repositories</h2>
+          <button id="newRepoButton" class="button primary">
+            <span class="icon">+</span> New Repository
+          </button>
+        </div>
+    
+        <form id="newRepoForm" class="form hidden">
+          <div class="form-group">
+            <label for="repoTitle">Repository Title</label>
+            <input type="text" id="repoTitle" class="input" required />
+          </div>
+          <div class="form-group">
+            <label for="repoDescription">Description</label>
+            <textarea id="repoDescription" class="input" rows="3" required></textarea>
+          </div>
+          <div class="actions">
+            <button type="button" id="cancelButton" class="button secondary">Cancel</button>
+            <button type="submit" class="button primary">Create Repository</button>
+          </div>
+        </form>
+    
+        <div id="repoList" class="repo-list">
+          <div class="empty-state">
+            <div class="icon-folder"></div>
+            <h3>No repositories</h3>
+            <p>Get started by creating a new repository</p>
+          </div>
+        </div>
+      </div>
+    
+      <script src="script.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
