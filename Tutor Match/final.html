@@ -10,6 +10,7 @@
 
     <title>EduMatch</title>
     <style>
+    
         /* Hero Section */
         .hero {
           background-color: #f8f9fa;
@@ -54,6 +55,53 @@
           color: #5a67d8;
           margin-right: 1rem;
         }
+        /* * {
+  box-sizing: border-box; */
+
+  #myInput {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+        border-radius: 0.5rem;
+      }
+
+      #subjects, #history {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      #subjects li a, #history li {
+        border: 1px solid #ddd;
+        margin-top: -1px;
+        background-color: #f6f6f6;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 18px;
+        color: black;
+        display: block;
+        border-radius: 0.5rem;
+      }
+
+      #subjects li a:hover:not(.header), #history li:hover {
+        background-color: #eee;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: fixed;
+        background-color: #f9f9f9;
+        min-width: 100%;
+        box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.2);
+        padding: 12px 16px;
+        z-index: 1;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
       </style>
   </head>
   <body>
@@ -80,7 +128,10 @@
                     <a class="nav-link" href="Login.html">login</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#View-All-Subjects">View All Subjects</a>
+                    <a class="nav-link" href="Tutor_Login.html">Tutor Registeration</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="Student_Login.html">Student Registeration</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="profile.html">My Profile</a>
@@ -90,7 +141,68 @@
             </div>
           </nav>
     </section>
-     
+<!--  -->
+<div class="dropdown">
+  <span>
+    <input type="text" id="myInput" onkeyup="filterSubjects()" placeholder="Search for a subject..." title="Type in a subject">
+  </span>
+  <div class="dropdown-content">
+    <ul id="subjects" style="border: 2px skyblue solid;">
+      <!-- JavaScript will populate this list -->
+    </ul>
+  </div>
+</div>
+<script>
+  // Predefined subjects
+  const subjects = ["DSA", "C Language", "Signals and Systems", "M1", "Chemistry", "Soft Skills", "English"];
+  const subjectList = document.getElementById("subjects");
+  const navbarSubjects = document.getElementById("navbar-subjects");
+  const historyList = document.getElementById("history");
+
+  // Render predefined subjects
+  function renderSubjects() {
+    subjectList.innerHTML = subjects
+      .map(subject => `<li><a href="#" onclick="addToNavbar('${subject}')">${subject}</a></li>`)
+      .join("");
+  }
+  renderSubjects();
+
+  // Filter subjects in the dropdown
+  function filterSubjects() {
+    const input = document.getElementById("myInput").value.toUpperCase();
+    const li = subjectList.getElementsByTagName("li");
+    let found = false;
+
+    for (let i = 0; i < li.length; i++) {
+      const a = li[i].getElementsByTagName("a")[0];
+      if (a.textContent.toUpperCase().indexOf(input) > -1) {
+        li[i].style.display = "";
+        found = true;
+      } else {
+        li[i].style.display = "none";
+      }
+    }
+    if (!found && input.trim() !== "") {
+          addToHistory(input);
+        }
+      }
+
+      // Add selected subject to the navbar
+      function addToNavbar(subject) {
+        const existing = Array.from(navbarSubjects.children).find(
+          item => item.textContent.trim() === subject
+        );
+
+        if (!existing) {
+          const newSubject = document.createElement("li");
+          newSubject.className = "nav-item";
+          newSubject.innerHTML = `<a class="nav-link" href="#">${subject}</a>`;
+          navbarSubjects.appendChild(newSubject);
+        }
+      }
+
+    </script>
+
 <!-- Hero Section -->
 
 <section class="hero text-center text-md-left">
@@ -189,40 +301,7 @@
             <label for="message" class="form-label">Message</label>
             <textarea class="form-control" id="message" rows="4" placeholder="Your Message" required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary"><script> Submit
-            document.querySelector('form').addEventListener('submit', async (event) => {
-              event.preventDefault(); // Prevent form from reloading the page
-          
-              // Gather form data
-              const name = document.getElementById('name').value;
-              const email = document.getElementById('email').value;
-              const message = document.getElementById('message').value;
-          
-              try {
-                // Send data to the backend
-                const response = await fetch('http://localhost:5000/contact', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ name, email, message }),
-                });
-          
-                const result = await response.json();
-          
-                if (response.ok) {
-                  alert(result.message); // Show success alert
-                  document.querySelector('form').reset(); // Clear the form
-                } else {
-                  alert(result.error); // Show error alert
-                }
-              } catch (error) {
-                alert('An error occurred. Please try again. submitted successfully');
-                console.error(error);
-              }
-            });
-          </script>
-          </button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
